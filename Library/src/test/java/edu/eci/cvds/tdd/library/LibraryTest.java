@@ -1,4 +1,7 @@
-package scr.main.java.edu.eci.cvds.tdd.library;
+package edu.eci.cvds.tdd;
+
+import edu.eci.cvds.tdd.library.Library;
+import edu.eci.cvds.tdd.library.book.Book;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -8,7 +11,7 @@ public class LibraryTest {
     
     @Before
     public void setUp() {
-        library=new Library();
+        library Lybrary=new Library();
         
     }
 
