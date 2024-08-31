@@ -1,16 +1,15 @@
-package edu.eci.cvds.tdd;
+package scr.main.java.edu.eci.cvds.tdd.library;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
 public class LibraryTest {
-    private F_Search fSearch;
-    private Garden garden;
     
     @Before
     public void setUp() {
         library=new Library();
+        
     }
 
     @Test
