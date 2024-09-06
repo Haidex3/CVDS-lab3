@@ -60,3 +60,4 @@ Library/target/site/jacoco/jacoco.xml
 Library/target/surefire-reports/TEST-edu.eci.cvds.tdd.library.LibraryTest.xml
 Library/target/surefire-reports/TEST-edu.eci.cvds.tdd.AppTest.xml
 .idea/CVDS-lab3.iml
+.idea/.name
