@@ -1,7 +1,10 @@
-package edu.eci.cvds.tdd;
+package edu.eci.cvds.tdd.library;
 
-import edu.eci.cvds.tdd.library.Library;
+
 import edu.eci.cvds.tdd.library.book.Book;
+import edu.eci.cvds.tdd.library.loan.Loan;
+import edu.eci.cvds.tdd.library.loan.LoanStatus;
+import edu.eci.cvds.tdd.library.user.User;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -11,13 +14,13 @@ public class LibraryTest {
     
     @Before
     public void setUp() {
-        library Lybrary=new Library();
+        Library lybrary=new Library();
         
     }
 
     @Test
     public void testAct() {
-        book1=new Book("Libro muy interesante","Desconocido","123");
+        Book book1=new Book("Libro muy interesante","Desconocido","123");
     }
 
 }
