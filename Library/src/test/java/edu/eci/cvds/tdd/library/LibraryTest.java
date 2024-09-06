@@ -6,21 +6,25 @@ import edu.eci.cvds.tdd.library.loan.Loan;
 import edu.eci.cvds.tdd.library.loan.LoanStatus;
 import edu.eci.cvds.tdd.library.user.User;
 
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
+import static org.junit.Assert.*;
 import org.junit.Test;
+
 
 public class LibraryTest {
     
-    @Before
-    public void setUp() {
-        Library lybrary=new Library();
-        
+    @Test
+    public void shouldAddBookToLibrary() {
+        Library library = new Library();
+        Book book = new Book("Title", "Author", "123456789");
+        assertTrue(library.addBook(book));
     }
 
     @Test
-    public void testAct() {
-        Book book1=new Book("Libro muy interesante","Desconocido","123");
+    public void shouldIncrementBookCountWhenBookAlreadyExists() {
+        Library library = new Library();
+        Book book = new Book("Title", "Author", "123456789");
+        library.addBook(book);
+        assertTrue(library.addBook(book)); 
     }
 
 }
