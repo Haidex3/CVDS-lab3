@@ -1,6 +1,7 @@
 package edu.eci.cvds.tdd.library;
 
 import edu.eci.cvds.tdd.library.book.Book;
+import edu.eci.cvds.tdd.library.Library;
 import edu.eci.cvds.tdd.library.loan.Loan;
 import edu.eci.cvds.tdd.library.loan.LoanStatus;
 import edu.eci.cvds.tdd.library.user.User;
@@ -67,6 +68,5 @@ public class LibraryTest {
         assertNotNull(returnedLoan);
         assertEquals(LoanStatus.RETURNED, returnedLoan.getStatus());
         assertEquals(1, library.getBookCount(book));
-    }
-    
+    }
 }

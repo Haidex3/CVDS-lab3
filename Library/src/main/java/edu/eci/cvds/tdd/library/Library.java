@@ -2,7 +2,10 @@ package edu.eci.cvds.tdd.library;
 
 import edu.eci.cvds.tdd.library.book.Book;
 import edu.eci.cvds.tdd.library.loan.Loan;
+import edu.eci.cvds.tdd.library.loan.LoanStatus;
 import edu.eci.cvds.tdd.library.user.User;
+import java.time.LocalDateTime;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +38,16 @@ public class Library {
      * @return true if the book was stored false otherwise.
      */
     public boolean addBook(Book book) {
-        //TODO Implement the logic to add a new book into the map.
-        return false;
+
+        if (books.containsKey(book)) {
+            books.put(book, books.get(book) + 1);
+        } else {
+            books.put(book, 1);
+        }
+        return true;
+        
     }
+
 
     /**
      * This method creates a new loan with for the User identify by the userId and the book identify by the isbn,
@@ -52,10 +62,35 @@ public class Library {
      *
      * @return The new created loan.
      */
+
     public Loan loanABook(String userId, String isbn) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
+        Book book = books.keySet().stream().filter(b -> b.getIsbn().equals(isbn)).findFirst().orElse(null);
+        if (book == null || books.get(book) <= 0) {
+            throw new IllegalArgumentException("Book is not available.");
+        }
+
+        User user = users.stream().filter(u -> u.getId().equals(userId)).findFirst().orElse(null);
+        if (user == null) {
+            throw new IllegalArgumentException("User does not exist.");
+        }
+
+        boolean hasActiveLoan = loans.stream().anyMatch(l -> l.getUser().equals(user) && l.getBook().equals(book) && l.getStatus() == LoanStatus.ACTIVE);
+        if (hasActiveLoan) {
+            throw new IllegalArgumentException("User already has an active loan for this book.");
+        }
+
+        Loan loan = new Loan();
+        loan.setBook(book);
+        loan.setUser(user);
+        loan.setLoanDate(LocalDateTime.now());
+        loan.setStatus(LoanStatus.ACTIVE);
+        loans.add(loan);
+
+        books.put(book, books.get(book) - 1);
+
+        return loan;
     }
+
 
     /**
      * This method return a loan, meaning that the amount of books should be increased by 1, the status of the Loan
@@ -67,9 +102,24 @@ public class Library {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
+        if (!loans.contains(loan)) {
+            throw new IllegalArgumentException("Loan does not exist.");
+        }
+
+        Loan existingLoan = loans.stream().filter(l -> l.equals(loan)).findFirst().orElse(null);
+        if (existingLoan == null) {
+            throw new IllegalArgumentException("Loan not found.");
+        }
+
+        existingLoan.setStatus(LoanStatus.RETURNED);
+        existingLoan.setReturnDate(LocalDateTime.now());
+
+        Book book = existingLoan.getBook();
+        books.put(book, books.get(book) + 1);
+
+        return existingLoan;
     }
+
 
     public boolean addUser(User user) {
         return users.add(user);
@@ -78,5 +128,6 @@ public class Library {
     public int getBookCount(Book book) {
         return books.getOrDefault(book, 0);
     }
+
 
 }
