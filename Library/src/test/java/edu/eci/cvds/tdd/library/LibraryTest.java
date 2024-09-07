@@ -67,5 +67,6 @@ public class LibraryTest {
         assertNotNull(returnedLoan);
         assertEquals(LoanStatus.RETURNED, returnedLoan.getStatus());
         assertEquals(1, library.getBookCount(book));
-    }
+    }
+    
 }

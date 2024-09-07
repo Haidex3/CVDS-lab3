@@ -75,4 +75,8 @@ public class Library {
         return users.add(user);
     }
 
+    public int getBookCount(Book book) {
+        return books.getOrDefault(book, 0);
+    }
+
 }
