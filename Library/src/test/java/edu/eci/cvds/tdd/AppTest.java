@@ -7,32 +7,34 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
+public class AppTest extends TestCase
 {
     /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+     * Este test verifica que un libro pueda ser prestado y luego devuelto correctamente.
+     * Se asegura de que:
+     * 1. El préstamo del libro se realice con éxito.
+     * 2. El préstamo devuelto tenga el estado "RETURNED".
+     * 3. El libro devuelto se cuente de nuevo en la biblioteca.
+    */
+    @Test
+    public void shouldReturnLoanedBook() {
+        Library library = new Library();
+        Book book = new Book("Title", "Author", "123456789");
+        User user = new User();
+        user.setId("user1");
+        user.setName("User One");
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+        library.addBook(book);
+        library.addUser(user);
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+        Loan loan = library.loanABook("user1", "123456789");
+
+        assertNotNull(loan);
+
+        Loan returnedLoan = library.returnLoan(loan);
+
+        assertNotNull(returnedLoan);
+        assertEquals(LoanStatus.RETURNED, returnedLoan.getStatus());
+        assertEquals(1, library.getBookCount(book));
     }
 }
